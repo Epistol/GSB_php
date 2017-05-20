@@ -1,4 +1,5 @@
-﻿<h3>Fiche de frais du mois <?= $numMois . "-" . $numAnnee ?> :
+﻿<div id="aexport">
+<h3>Fiche de frais du mois <?= $numMois . "-" . $numAnnee ?> :
 </h3>
 
 <button class="button  is-info" id="target">
@@ -69,28 +70,23 @@
     </table>
 </div>
 </div>
+</div>
+
 <script>
     // Default export is a4 paper, portrait, using milimeters for units
 
-    var doc = new jsPDF();
+    var specialElementHandlers = {
+        '#editor': function (element,renderer) {
+            return true;
+        }
+    };
 
-    doc.text(50, 10, 'REMBOURSEMENT DE FRAIS ENGAGES');
-    doc.text(10,30, 'Visiteur');
-    doc.text(80, 30,  ' <?= $_SESSION['prenom'] . "  " . $_SESSION['nom'] ?> ');
-    doc.text(10,40,'Mois');
-    doc.text(30,40,'<?=  $mois ?>');
-    doc.rect(10, 50, 80, 100);
-    doc.canvas.height = 72 * 11;
-    doc.canvas.width = 72 * 8.5;
-    doc.addHTML("	<?php
-	    foreach ($lesFraisForfait as $unFraisForfait) {
-	    $libelle = $unFraisForfait['libelle'];
-	    ?>
-        <th> <?= $libelle ?></th>
-	    <?php
-		    }
-		    ?>", 20,50);
     $( "#target" ).click(function() {
+
+        var doc = new jsPDF();
+        doc.fromHTML($('#aexport').html(), 1, 1, {
+            'width': 170,'elementHandlers': specialElementHandlers
+        });
         doc.save('reboursement.pdf');
     });
 

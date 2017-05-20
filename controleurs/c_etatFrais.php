@@ -33,6 +33,7 @@ switch ($action) {
         $voit = $fiche[0]['type_Voiture'];
 
         $nom_voiture = $pdo->getNomVoiture($voit);
+
             include("vues/v_etatFrais.php");
         }
     }

@@ -3,6 +3,7 @@ session_start();
 ini_set('display_errors', 'on');
 error_reporting(E_ALL);
 require_once("include/fct.inc.php");
+
 require_once("include/class.pdogsb.inc.php");
 include("vues/v_entete.php");
 define("ROOT", __DIR__ ."/");
